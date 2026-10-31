@@ -1,0 +1,6 @@
+{
+  "name": "SeatEase - Online Seat Booking System",
+  "description": "A RedBus-inspired online bus seat booking system with interactive 30-seat layout, real-time availability, passenger booking, ticket confirmation, and complete Java OOP JDBC backend architecture.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
