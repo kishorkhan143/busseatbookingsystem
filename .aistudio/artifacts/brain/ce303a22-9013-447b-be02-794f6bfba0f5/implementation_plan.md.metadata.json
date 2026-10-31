@@ -1,0 +1,6 @@
+{
+  "summary":  "Comprehensive plan to unify app layouts into a clean, single-card UX without clumsy accordions, implement a dedicated step-by-step seat booking flow triggered by tapping any bus card or 'Select Seats', and fix all light and dark theme contrast issues in Profile and booking views.",
+  "updatedAt":  "2026-10-31T13:37:08.570592269Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}

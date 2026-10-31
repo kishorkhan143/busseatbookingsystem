@@ -11,15 +11,17 @@ import {
   UserProfile,
 } from './services/api';
 import { SeatItem, toggleSeatSelection } from './utils/bookingRules';
+import { ThemeProvider } from './context/ThemeContext';
 import { TopMenuBar, NavTab } from './components/TopMenuBar';
 import { BottomMenuBar } from './components/BottomMenuBar';
 import { HomeView } from './components/HomeView';
 import { TicketBookingView } from './components/TicketBookingView';
+import { HomeStaysView } from './components/HomeStaysView';
 import { MyBookingsView } from './components/MyBookingsView';
 import { ProfileView } from './components/ProfileView';
 import { GlobalSearchModal } from './components/GlobalSearchModal';
 
-export default function App() {
+function MainApp() {
   // Navigation
   const [activeTab, setActiveTab] = useState<NavTab>('home');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -86,7 +88,7 @@ export default function App() {
     setSelectedSeatIds([]);
   };
 
-  // Handle booking creation
+  // Handle bus booking creation
   const handleBookSeats = async (payload: {
     name: string;
     mobile: string;
@@ -113,7 +115,7 @@ export default function App() {
     return result.data;
   };
 
-  // Handle cancellation
+  // Handle cancellation (Bus ticket or Homestay)
   const handleCancelBooking = async (bookingId: number) => {
     await cancelBooking(bookingId);
     await loadSeats(currentBusId);
@@ -150,44 +152,43 @@ export default function App() {
   };
 
   const availableSeatsCount = seats.filter((s) => s.status === 'AVAILABLE').length;
-  const bookedSeatsCount = seats.length - availableSeatsCount;
 
   return (
-    <div className="relative min-h-screen bg-[#070C16] text-slate-100 flex flex-col font-sans overflow-x-hidden selection:bg-cyan-500 selection:text-slate-950">
-      {/* Dynamic Ambient Glassmorphism Glow Background Orbs */}
+    <div className="relative h-[100dvh] max-h-[100dvh] w-full bg-slate-100/90 text-slate-900 dark:bg-[#070b14] dark:text-slate-100 flex flex-col font-sans overflow-hidden selection:bg-cyan-500 selection:text-white transition-colors duration-200">
+      {/* Dynamic Ambient Liquid Mesh - Underneath Apple Frosted Glass */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute -top-32 -left-32 w-80 sm:w-[540px] h-80 sm:h-[540px] rounded-full bg-cyan-500/[0.12] blur-[100px] sm:blur-[140px] animate-float-slow" />
-        <div className="absolute top-1/3 -right-32 w-80 sm:w-[560px] h-80 sm:h-[560px] rounded-full bg-indigo-500/[0.12] blur-[110px] sm:blur-[150px]" />
-        <div className="absolute -bottom-32 left-1/4 w-80 sm:w-[500px] h-80 sm:h-[500px] rounded-full bg-emerald-500/[0.08] blur-[120px] sm:blur-[160px]" />
+        <div className="absolute -top-40 -left-40 w-96 sm:w-[580px] h-96 sm:h-[580px] rounded-full bg-gradient-to-br from-cyan-400/20 via-sky-500/15 to-transparent dark:from-cyan-500/25 dark:via-blue-600/15 dark:to-transparent blur-[110px] sm:blur-[140px] animate-liquid-1" />
+        <div className="absolute top-1/4 -right-40 w-96 sm:w-[620px] h-96 sm:h-[620px] rounded-full bg-gradient-to-bl from-indigo-400/15 via-purple-500/15 to-transparent dark:from-indigo-600/20 dark:via-purple-600/15 dark:to-transparent blur-[120px] sm:blur-[150px] animate-liquid-2" />
+        <div className="absolute -bottom-40 left-1/3 w-96 sm:w-[560px] h-96 sm:h-[560px] rounded-full bg-gradient-to-tr from-emerald-400/15 via-teal-400/10 to-transparent dark:from-emerald-500/15 dark:via-cyan-600/10 dark:to-transparent blur-[130px] sm:blur-[160px] animate-liquid-3" />
+        <div className="absolute top-1/2 left-10 w-64 h-64 rounded-full bg-pink-400/10 dark:bg-pink-500/10 blur-[100px] pointer-events-none" />
       </div>
 
-      {/* Top Menu Bar */}
-      <TopMenuBar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        onOpenSearch={() => setIsSearchOpen(true)}
-        availableSeatsCount={availableSeatsCount}
-        totalBookingsCount={bookings.filter((b) => b.bookingStatus === 'CONFIRMED').length}
-        userName={userProfile.name}
-      />
+      {/* Top Menu Bar with Theme Toggle - Static at top */}
+      <div className="shrink-0 w-full z-40">
+        <TopMenuBar
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          onOpenSearch={() => setIsSearchOpen(true)}
+          availableSeatsCount={availableSeatsCount}
+          totalBookingsCount={bookings.filter((b) => b.bookingStatus === 'CONFIRMED').length}
+          userName={userProfile.name}
+        />
+      </div>
 
-      {/* Main View Area with Butter-Smooth Page Transitions */}
-      <main className="relative z-10 flex-1 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-5 sm:py-8 w-full">
+      {/* Main View Area - Only scrollable region constrained to 1280px, with generous bottom padding for fixed static bar */}
+      <main className="relative z-10 flex-1 min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain flex flex-col max-w-[1280px] mx-auto px-2 sm:px-6 lg:px-8 pt-2 sm:pt-4 pb-20 sm:pb-24 w-full">
         {activeTab === 'home' && (
-          <div key="home" className="animate-fade-in">
+          <div key="home" className="animate-fade-in w-full">
             <HomeView
               onNavigate={setActiveTab}
               onOpenSearch={() => setIsSearchOpen(true)}
-              availableSeatsCount={availableSeatsCount}
-              totalSeatsCount={seats.length || 30}
-              bookedSeatsCount={bookedSeatsCount}
               onSelectRoute={handleSelectRouteFromHome}
             />
           </div>
         )}
 
         {activeTab === 'ticket-booking' && (
-          <div key="ticket-booking" className="animate-fade-in">
+          <div key="ticket-booking" className="animate-fade-in w-full">
             <TicketBookingView
               seats={seats}
               selectedSeatIds={selectedSeatIds}
@@ -200,13 +201,29 @@ export default function App() {
               initialFromCity={selectedFromCity}
               initialToCity={selectedToCity}
               initialBusId={currentBusId}
-              onViewBookings={() => setActiveTab('my-bookings')}
+              onViewBookings={() => {
+                loadBookings();
+                setActiveTab('my-bookings');
+              }}
+            />
+          </div>
+        )}
+
+        {activeTab === 'homestays' && (
+          <div key="homestays" className="animate-fade-in w-full">
+            <HomeStaysView
+              userProfile={userProfile}
+              onViewBookings={() => {
+                loadBookings();
+                setActiveTab('my-bookings');
+              }}
+              onNavigate={setActiveTab}
             />
           </div>
         )}
 
         {activeTab === 'my-bookings' && (
-          <div key="my-bookings" className="animate-fade-in">
+          <div key="my-bookings" className="animate-fade-in w-full">
             <MyBookingsView
               bookings={bookings}
               onCancelBooking={handleCancelBooking}
@@ -217,7 +234,7 @@ export default function App() {
         )}
 
         {activeTab === 'profile' && (
-          <div key="profile" className="animate-fade-in">
+          <div key="profile" className="animate-fade-in w-full">
             <ProfileView
               profile={userProfile}
               onUpdateProfile={handleUpdateProfile}
@@ -229,24 +246,32 @@ export default function App() {
         )}
       </main>
 
-      {/* Bottom Liquid Glass Menu Bar */}
+      {/* Static Non-Scrollable Bottom Segmented Tab Bar */}
       <BottomMenuBar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         bookingsCount={bookings.filter((b) => b.bookingStatus === 'CONFIRMED').length}
       />
 
-      {/* Global Liquid Glass Search Modal */}
+      {/* Global Search Modal */}
       <GlobalSearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
         bookings={bookings}
         onNavigate={setActiveTab}
         onSelectRoute={handleSelectRouteFromHome}
-        onSelectBooking={(b) => {
+        onSelectBooking={() => {
           setActiveTab('my-bookings');
         }}
       />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <MainApp />
+    </ThemeProvider>
   );
 }

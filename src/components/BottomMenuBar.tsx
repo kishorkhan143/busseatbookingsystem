@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Armchair, Ticket, User } from 'lucide-react';
+import { Home, Armchair, Building2, Ticket, User } from 'lucide-react';
 import { NavTab } from './TopMenuBar';
 
 interface BottomMenuBarProps {
@@ -22,68 +22,70 @@ export const BottomMenuBar: React.FC<BottomMenuBarProps> = ({
 }) => {
   const items: NavItem[] = [
     { id: 'home', label: 'Home', icon: Home },
-    { id: 'ticket-booking', label: 'Ticket Booking', icon: Armchair },
+    { id: 'ticket-booking', label: 'Buses', icon: Armchair },
+    { id: 'homestays', label: 'Stays', icon: Building2 },
     {
       id: 'my-bookings',
-      label: 'My Bookings',
+      label: 'Bookings',
       icon: Ticket,
       badge: bookingsCount > 0 ? bookingsCount : undefined,
     },
     { id: 'profile', label: 'Profile', icon: User },
   ];
 
+
   return (
     <nav
-      className="fixed bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 max-w-[95vw] select-none"
+      className="fixed bottom-0 inset-x-0 z-40 w-full bg-white/90 dark:bg-[#070b14]/95 backdrop-blur-2xl border-t border-slate-200/80 dark:border-white/10 shadow-[0_-4px_24px_rgba(0,0,0,0.06)] select-none pb-[env(safe-area-inset-bottom,0px)]"
       aria-label="Bottom Navigation Menu"
     >
-      {/* Floating Liquid Glass Dock */}
-      <div className="relative backdrop-blur-2xl bg-slate-950/80 border border-white/15 rounded-full p-1.5 sm:p-2 shadow-[0_12px_40px_rgba(0,0,0,0.65)] ring-1 ring-white/10 flex items-center gap-1 sm:gap-2">
-        {/* Subtle Ambient Backglow */}
-        <div className="absolute -inset-1 rounded-full bg-cyan-500/10 blur-xl pointer-events-none -z-10" />
+      <div className="max-w-[1280px] mx-auto px-2 sm:px-6 h-14 flex items-center justify-center">
+        {/* Fixed static tab bar container */}
+        <div className="flex items-center justify-between w-full max-w-xl h-11 p-1 bg-slate-200/60 dark:bg-slate-900/70 backdrop-blur-xl rounded-2xl border border-white/70 dark:border-white/10 shadow-[inset_0_1px_2px_rgba(0,0,0,0.04)] gap-1">
+          {items.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
 
-        {items.map((item) => {
-          const Icon = item.icon;
-          const isActive = activeTab === item.id;
-
-          return (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={`relative px-3 sm:px-4 py-2 sm:py-2.5 rounded-full flex items-center gap-2 text-xs font-bold transition-all duration-300 ease-out cursor-pointer active:scale-95 ${
-                isActive
-                  ? 'bg-gradient-to-r from-cyan-500/30 via-blue-600/35 to-indigo-600/30 border border-cyan-400/60 text-white shadow-[0_0_20px_rgba(34,211,238,0.35)] backdrop-blur-md'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]'
-              }`}
-            >
-              {/* Icon with Glow when Active */}
-              <div className="relative">
-                <Icon
-                  className={`w-4 h-4 sm:w-4.5 sm:h-4.5 transition-all duration-200 ${
-                    isActive
-                      ? 'text-cyan-300 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] scale-110'
-                      : 'text-slate-400'
-                  }`}
-                />
-                {item.badge !== undefined && (
-                  <span className="absolute -top-1.5 -right-2 w-4 h-4 rounded-full bg-cyan-400 text-slate-950 text-[9px] font-black flex items-center justify-center shadow-[0_0_8px_rgba(34,211,238,0.6)]">
-                    {item.badge}
-                  </span>
-                )}
-              </div>
-
-              {/* Label */}
-              <span
-                className={`whitespace-nowrap transition-opacity duration-200 ${
-                  isActive ? 'block' : 'hidden md:block'
+            return (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                type="button"
+                className={`relative flex-1 h-full flex flex-col items-center justify-center gap-0.5 rounded-xl transition-all duration-200 cursor-pointer min-w-0 active:scale-95 focus:outline-none ${
+                  isActive
+                    ? 'bg-white/95 dark:bg-white/[0.14] text-cyan-600 dark:text-cyan-300 font-bold shadow-[0_2px_8px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.9)] dark:shadow-[0_2px_10px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.25)] border border-white/80 dark:border-white/20'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 font-semibold'
                 }`}
+                aria-selected={isActive}
+                role="tab"
               >
-                {item.label}
-              </span>
-            </button>
-          );
-        })}
+                {/* Active glossy shine */}
+                {isActive && (
+                  <div className="absolute inset-x-0 top-0 h-[45%] rounded-t-xl bg-gradient-to-b from-white/60 dark:from-white/20 to-transparent pointer-events-none" />
+                )}
+
+                <div className="relative flex items-center justify-center">
+                  <Icon
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isActive ? 'stroke-[2.5] scale-110 text-cyan-600 dark:text-cyan-400 drop-shadow-xs' : 'stroke-[1.8]'
+                    }`}
+                  />
+                  {item.badge !== undefined && (
+                    <span className="absolute -top-1 -right-2.5 px-1 min-w-[14px] h-3.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-[8px] font-black flex items-center justify-center shadow-xs border border-white/50">
+                      {item.badge}
+                    </span>
+                  )}
+                </div>
+
+                <span className="text-[10px] truncate tracking-tight leading-tight">
+                  {item.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );
 };
+

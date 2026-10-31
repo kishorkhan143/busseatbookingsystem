@@ -16,7 +16,7 @@ export const SEAT_PRICE = 150;
 /**
  * Validates passenger details.
  */
-export function validatePassenger(name: string, mobile: string, selectedSeatIds: string[]): {
+export function validatePassenger(name: string, mobile: string, selectedSeatIds?: string[]): {
   isValid: boolean;
   errors: { name?: string; mobile?: string; seats?: string };
 } {
@@ -36,7 +36,7 @@ export function validatePassenger(name: string, mobile: string, selectedSeatIds:
     errors.mobile = 'Mobile number must contain exactly 10 digits.';
   }
 
-  if (!selectedSeatIds || selectedSeatIds.length === 0) {
+  if (selectedSeatIds !== undefined && (!selectedSeatIds || selectedSeatIds.length === 0)) {
     errors.seats = 'At least one seat must be selected.';
   }
 

@@ -17,21 +17,38 @@ export interface CustomerData {
   email?: string;
 }
 
-export interface CustomerData {
-  customerId?: number;
+
+export interface HomeStayItem {
+  id: string;
   name: string;
-  mobile: string;
-  email?: string;
+  tagline: string;
+  city: string;
+  location: string;
+  rating: number;
+  reviewCount: number;
+  pricePerNight: number;
+  stayType: 'Plantation Estate' | 'Heritage Villa' | 'Cozy Cottage' | 'Beachfront Stay' | 'Mountain Bungalow';
+  maxGuests: number;
+  bedrooms: number;
+  bathrooms: number;
+  imageUrl: string;
+  amenities: string[];
+  hostName: string;
+  isSuperhost: boolean;
+  transitDistance: string;
+  description: string;
 }
 
 export interface BookingData {
   bookingId: number;
   pnr: string;
+  bookingType?: 'BUS' | 'HOMESTAY';
   customer: CustomerData;
   seatIds: string[];
   totalAmount: number;
   bookingDate: string;
   bookingStatus: 'CONFIRMED' | 'CANCELLED';
+  // Bus-specific fields
   busId?: string;
   busName?: string;
   busType?: string;
@@ -42,6 +59,17 @@ export interface BookingData {
   departureTime?: string;
   arrivalTime?: string;
   journeyDate?: string;
+  // Homestay-specific fields
+  stayId?: string;
+  stayName?: string;
+  stayLocation?: string;
+  stayImageUrl?: string;
+  hostName?: string;
+  checkInDate?: string;
+  checkOutDate?: string;
+  nights?: number;
+  guestsCount?: number;
+  pricePerNight?: number;
 }
 
 export interface BusItem {
@@ -186,6 +214,169 @@ export const POPULAR_ROUTES: PopularRoute[] = [
     arrivalTime: '04:00',
     pricePerSeat: 150,
     amenities: ['Silent EV Cabin', 'AC', 'Panoramic Windows', 'Fast Charging', 'Eco-Pledge'],
+  },
+];
+
+export const SAMPLE_HOMESTAYS: HomeStayItem[] = [
+  {
+    id: 'hs-coorg-1',
+    name: 'Whispering Woods Coffee Estate',
+    tagline: 'Private plantation villa nestled in organic Robusta coffee groves',
+    city: 'Coorg',
+    location: 'Madikeri Hills, Coorg, Karnataka',
+    rating: 4.94,
+    reviewCount: 142,
+    pricePerNight: 3800,
+    stayType: 'Plantation Estate',
+    maxGuests: 6,
+    bedrooms: 3,
+    bathrooms: 3,
+    imageUrl: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=80',
+    amenities: ['Plantation Tour', 'Bonfire & BBQ', 'High-Speed Wi-Fi', 'Homecooked Kodava Meals', 'Mountain View', 'Free Parking'],
+    hostName: 'Kaveri Nanjappa',
+    isSuperhost: true,
+    transitDistance: '2.4 km from Madikeri Bus Depot',
+    description: 'Wake up to the fresh aroma of blossoming coffee plants and misty hillside sunrises. Featuring heritage wooden architecture, authentic homemade breakfast, and guided spice trails.',
+  },
+  {
+    id: 'hs-ooty-1',
+    name: 'Nilgiri Mist Heritage Bungalow',
+    tagline: '1920s British colonial cottage with stone fireplace & tea garden vistas',
+    city: 'Ooty',
+    location: 'Doddabetta Road, Ooty, Tamil Nadu',
+    rating: 4.88,
+    reviewCount: 98,
+    pricePerNight: 4200,
+    stayType: 'Mountain Bungalow',
+    maxGuests: 5,
+    bedrooms: 2,
+    bathrooms: 2,
+    imageUrl: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=900&q=80',
+    amenities: ['Indoor Fireplace', 'Panoramic Tea Vistas', 'Artisanal Breakfast', 'Heated Bedrooms', 'Botanical Garden Access'],
+    hostName: 'Dr. Arthur Samuel',
+    isSuperhost: true,
+    transitDistance: '3.1 km from Ooty Central Bus Stand',
+    description: 'A restored colonial gem built with Nilgiri slate and cedar. Enjoy crisp highland air, evening tea tastings, and panoramic views of rolling Eucalyptus hills.',
+  },
+  {
+    id: 'hs-goa-1',
+    name: 'Casa Miramar Coastal Haven',
+    tagline: 'Portuguese-style beachfront sanctuary steps away from golden sands',
+    city: 'Goa',
+    location: 'Candolim Beach Road, North Goa',
+    rating: 4.92,
+    reviewCount: 215,
+    pricePerNight: 5500,
+    stayType: 'Beachfront Stay',
+    maxGuests: 4,
+    bedrooms: 2,
+    bathrooms: 2,
+    imageUrl: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80',
+    amenities: ['Private Plunge Pool', 'Direct Beach Trail', 'Air Conditioning', 'Fully Equipped Kitchen', 'Outdoor Sun Loungers'],
+    hostName: 'Maria D’Souza',
+    isSuperhost: true,
+    transitDistance: '1.8 km from Mapusa Intercity Hub',
+    description: 'Charming Portuguese villa with terracotta tiling, private courtyard garden, and sun-drenched verandas just a 3-minute stroll to the Arabian Sea.',
+  },
+  {
+    id: 'hs-wayanad-1',
+    name: 'Silver Oak Rain-Forest Retreat',
+    tagline: 'Eco-lodge perched along a whispering mountain stream',
+    city: 'Wayanad',
+    location: 'Vythiri Rainforest Valley, Wayanad, Kerala',
+    rating: 4.86,
+    reviewCount: 84,
+    pricePerNight: 3400,
+    stayType: 'Cozy Cottage',
+    maxGuests: 4,
+    bedrooms: 2,
+    bathrooms: 2,
+    imageUrl: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=900&q=80',
+    amenities: ['Natural Stream Pool', 'Organic Kerala Cuisine', 'Bamboo Balcony', 'Wi-Fi', 'Bird Watching Trails'],
+    hostName: 'Mathew George',
+    isSuperhost: true,
+    transitDistance: '4.0 km from Kalpetta Bus Stand',
+    description: 'Immerse in lush Western Ghats biodiversity. Handcrafted eco-cottage made with bamboo and local granite, offering soothing sounds of flowing streams and birdsong.',
+  },
+  {
+    id: 'hs-mysore-1',
+    name: 'Royal Chamundi Heritage Haveli',
+    tagline: 'Regal courtyard mansion with antique teak pillars & courtyard garden',
+    city: 'Mysore',
+    location: 'Chamundipuram, Mysore, Karnataka',
+    rating: 4.90,
+    reviewCount: 167,
+    pricePerNight: 4600,
+    stayType: 'Heritage Villa',
+    maxGuests: 6,
+    bedrooms: 3,
+    bathrooms: 3,
+    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80',
+    amenities: ['Central Courtyard', 'Royal Mysore Thali', 'Yoga & Meditation Deck', 'Fiber Wi-Fi', 'EV Charging Station'],
+    hostName: 'Raghunath Rao',
+    isSuperhost: true,
+    transitDistance: '1.5 km from Mysore Suburban Bus Stand',
+    description: 'Step into princely Mysuru heritage. Featuring stone corridors, brass lamps, shaded courtyards, and home-cooked South Indian delicacies.',
+  },
+  {
+    id: 'hs-chik-1',
+    name: 'Cloudburst Peak Valley Cottage',
+    tagline: 'Rustic cedar cabin overlooking the Mullayanagiri peak crest',
+    city: 'Chikmagalur',
+    location: 'Mullayanagiri Foothills, Chikmagalur, Karnataka',
+    rating: 4.84,
+    reviewCount: 76,
+    pricePerNight: 3200,
+    stayType: 'Cozy Cottage',
+    maxGuests: 4,
+    bedrooms: 2,
+    bathrooms: 1,
+    imageUrl: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80',
+    amenities: ['Stargazing Terrace', 'Campfire Nightly', 'Hot Spring Tubs', 'Arabica Coffee Bar', 'Pet Friendly'],
+    hostName: 'Vikram Gowda',
+    isSuperhost: false,
+    transitDistance: '5.2 km from Chikmagalur KSRTC Terminal',
+    description: 'High-altitude peace on the slopes of Karnataka’s tallest peak. Perfect for trekking enthusiasts, quiet weekend escapes, and stargazing beside crackling pine fires.',
+  },
+  {
+    id: 'hs-blr-1',
+    name: 'Garden City Terrace Penthouse',
+    tagline: 'Minimalist designer loft in leafy Indiranagar with rooftop plunge garden',
+    city: 'Bangalore',
+    location: '100ft Road, Indiranagar, Bangalore',
+    rating: 4.81,
+    reviewCount: 194,
+    pricePerNight: 2900,
+    stayType: 'Cozy Cottage',
+    maxGuests: 3,
+    bedrooms: 1,
+    bathrooms: 1,
+    imageUrl: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80',
+    amenities: ['Ultra-fast Wi-Fi 300Mbps', 'Ergonomic Workstation', 'Rooftop Garden', 'AC', 'Kitchenette'],
+    hostName: 'Ananya Sharma',
+    isSuperhost: true,
+    transitDistance: '3.8 km from Shantinagar Bus Station',
+    description: 'Chic urban retreat for digital nomads and transit stopovers. Surrounded by Indiranagar’s premier cafes, metro access, and quiet tree-lined boulevards.',
+  },
+  {
+    id: 'hs-chn-1',
+    name: 'Coromandel Bay Heritage Villa',
+    tagline: 'Restored Chettinad-style coastal villa with breezy pillared verandahs',
+    city: 'Chennai',
+    location: 'East Coast Road (ECR), Chennai, Tamil Nadu',
+    rating: 4.87,
+    reviewCount: 112,
+    pricePerNight: 4800,
+    stayType: 'Heritage Villa',
+    maxGuests: 6,
+    bedrooms: 3,
+    bathrooms: 3,
+    imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=80',
+    amenities: ['Swimming Pool', 'Chettinad Cuisine', 'Sea Breeze Verandah', 'AC Bedrooms', 'Lawn & Swing'],
+    hostName: 'Senthil Nathan',
+    isSuperhost: true,
+    transitDistance: '6.5 km from Koyambedu CMBT Hub',
+    description: 'Authentic coastal heritage with Athangudi handmade tiles, sculpted teak pillars, and cool ocean breezes along Chennai’s scenic East Coast Road.',
   },
 ];
 
@@ -491,7 +682,7 @@ export function searchAvailableBuses(fromCity: string, toCity: string): BusItem[
   ];
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 // In-Memory Simulation State with LocalStorage backing
 const STORAGE_KEY_SEATS_PREFIX = 'seatease_bus_seats_v3_';
@@ -559,9 +750,15 @@ function saveStoredBookings(bookings: BookingData[]) {
 }
 
 /**
- * Probes the Java backend on port 8080.
+ * Probes the backend connection if an external endpoint is configured.
  */
 export async function checkBackendConnection(): Promise<boolean> {
+  if (!API_BASE_URL) {
+    isLiveBackendAvailable = false;
+    backendCheckCompleted = true;
+    return false;
+  }
+
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 1200);
@@ -730,6 +927,7 @@ export async function createBooking(payload: {
   const newBooking: BookingData = {
     bookingId: newBookingId,
     pnr: `SE-${newBookingId}`,
+    bookingType: 'BUS',
     customer: {
       customerId: Math.floor(Math.random() * 9000) + 1000,
       name: payload.name.trim(),
@@ -842,8 +1040,87 @@ export async function getAllBookings(): Promise<BookingData[]> {
   return bookings;
 }
 
+export interface CreateHomestayBookingPayload {
+  stayId: string;
+  stayName: string;
+  stayLocation: string;
+  stayImageUrl: string;
+  hostName?: string;
+  pricePerNight: number;
+  name: string;
+  mobile: string;
+  email?: string;
+  checkInDate: string;
+  checkOutDate: string;
+  nights: number;
+  guestsCount: number;
+}
+
 /**
- * Cancel a booking and release its seats
+ * Creates a verified Homestay reservation
+ */
+export async function createHomestayBooking(payload: CreateHomestayBookingPayload): Promise<{
+  success: boolean;
+  message: string;
+  data: BookingData;
+}> {
+  const validation = validatePassenger(payload.name, payload.mobile);
+  if (!validation.isValid) {
+    const firstErr = Object.values(validation.errors)[0] || 'Invalid guest details.';
+    throw new Error(firstErr);
+  }
+
+  if (payload.nights < 1) {
+    throw new Error('Please select valid check-in and check-out dates (minimum 1 night).');
+  }
+
+  const basePrice = payload.nights * payload.pricePerNight;
+  const taxes = Math.round(basePrice * 0.12);
+  const totalAmount = basePrice + taxes;
+
+  const currentBookings = getStoredBookings();
+  const newBookingId = currentBookings.length > 0
+    ? Math.max(...currentBookings.map((b) => b.bookingId)) + 1
+    : 1001;
+
+  const newBooking: BookingData = {
+    bookingId: newBookingId,
+    pnr: `HS-${newBookingId}`,
+    bookingType: 'HOMESTAY',
+    customer: {
+      customerId: Math.floor(Math.random() * 9000) + 1000,
+      name: payload.name.trim(),
+      mobile: payload.mobile.trim(),
+      email: payload.email?.trim() || '',
+    },
+    seatIds: [],
+    totalAmount,
+    bookingDate: new Date().toISOString(),
+    bookingStatus: 'CONFIRMED',
+    stayId: payload.stayId,
+    stayName: payload.stayName,
+    stayLocation: payload.stayLocation,
+    stayImageUrl: payload.stayImageUrl,
+    hostName: payload.hostName || 'Homestay Host',
+    checkInDate: payload.checkInDate,
+    checkOutDate: payload.checkOutDate,
+    nights: payload.nights,
+    guestsCount: payload.guestsCount,
+    pricePerNight: payload.pricePerNight,
+  };
+
+  currentBookings.unshift(newBooking);
+  saveStoredBookings(currentBookings);
+
+  return {
+    success: true,
+    message: 'Homestay reserved successfully!',
+    data: newBooking,
+  };
+}
+
+/**
+ * Cancel a booking and release its seats (if a bus booking)
  */
 export async function cancelBooking(bookingId: number): Promise<{
   success: boolean;
@@ -883,20 +1160,28 @@ export async function cancelBooking(bookingId: number): Promise<{
   booking.bookingStatus = 'CANCELLED';
   saveStoredBookings(bookings);
 
-  // Release seats
-  const busId = booking.busId || 'blr-chn-1';
-  const seats = getStoredSeats(busId);
-  const updatedSeats = seats.map((s) => {
-    if (booking.seatIds.includes(s.seatId)) {
-      return { ...s, status: 'AVAILABLE' as const };
-    }
-    return s;
-  });
-  saveStoredSeats(updatedSeats, busId);
+  // If bus booking with seats, release seats
+  if (booking.bookingType !== 'HOMESTAY' && booking.seatIds && booking.seatIds.length > 0) {
+    const busId = booking.busId || 'blr-chn-1';
+    const seats = getStoredSeats(busId);
+    const updatedSeats = seats.map((s) => {
+      if (booking.seatIds.includes(s.seatId)) {
+        return { ...s, status: 'AVAILABLE' as const };
+      }
+      return s;
+    });
+    saveStoredSeats(updatedSeats, busId);
+
+    return {
+      success: true,
+      message: `Booking #${bookingId} cancelled successfully. Seats ${booking.seatIds.join(', ')} released.`,
+      bookingId,
+    };
+  }
 
   return {
     success: true,
-    message: `Booking #${bookingId} cancelled successfully. Seats ${booking.seatIds.join(', ')} released.`,
+    message: `Homestay reservation #${bookingId} cancelled successfully.`,
     bookingId,
   };
 }

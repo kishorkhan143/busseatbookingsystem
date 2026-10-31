@@ -30,18 +30,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
               <Bus className="w-6 h-6 text-white" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xl font-bold tracking-tight text-white">
-                  Seat<span className="text-cyan-400">Ease</span>
-                </span>
-                <span className="text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-800/60">
-                  Java OOP Mini Project
-                </span>
-              </div>
-              <p className="text-xs text-slate-400 hidden sm:block">
-                Online Bus Seat Booking System
-              </p>
+            <div className="flex items-center gap-2">
+              <span className="text-xl font-bold tracking-tight text-white">
+                Seat<span className="text-cyan-400">Ease</span>
+              </span>
             </div>
           </div>
 
