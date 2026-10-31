@@ -154,7 +154,7 @@ function MainApp() {
   const availableSeatsCount = seats.filter((s) => s.status === 'AVAILABLE').length;
 
   return (
-    <div className="relative h-[100dvh] max-h-[100dvh] w-full bg-slate-100/90 text-slate-900 dark:bg-[#070b14] dark:text-slate-100 flex flex-col font-sans overflow-hidden selection:bg-cyan-500 selection:text-white transition-colors duration-200">
+    <div className="relative h-full max-h-full w-full bg-slate-100/90 text-slate-900 dark:bg-[#070b14] dark:text-slate-100 flex flex-col font-sans overflow-hidden selection:bg-cyan-500 selection:text-white transition-colors duration-200">
       {/* Dynamic Ambient Liquid Mesh - Underneath Apple Frosted Glass */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute -top-40 -left-40 w-96 sm:w-[580px] h-96 sm:h-[580px] rounded-full bg-gradient-to-br from-cyan-400/20 via-sky-500/15 to-transparent dark:from-cyan-500/25 dark:via-blue-600/15 dark:to-transparent blur-[110px] sm:blur-[140px] animate-liquid-1" />
@@ -175,8 +175,8 @@ function MainApp() {
         />
       </div>
 
-      {/* Main View Area - Only scrollable region constrained to 1280px, with generous bottom padding for fixed static bar */}
-      <main className="relative z-10 flex-1 min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain flex flex-col max-w-[1280px] mx-auto px-2 sm:px-6 lg:px-8 pt-2 sm:pt-4 pb-20 sm:pb-24 w-full">
+      {/* Main View Area - Only scrollable region constrained to 1280px */}
+      <main className="relative z-10 flex-1 min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain flex flex-col max-w-[1280px] mx-auto px-2 sm:px-6 lg:px-8 pt-2 sm:pt-4 pb-4 sm:pb-6 w-full">
         {activeTab === 'home' && (
           <div key="home" className="animate-fade-in w-full">
             <HomeView

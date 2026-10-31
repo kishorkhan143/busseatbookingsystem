@@ -36,12 +36,13 @@ export const BottomMenuBar: React.FC<BottomMenuBarProps> = ({
 
   return (
     <nav
-      className="fixed bottom-0 inset-x-0 z-40 w-full bg-white/90 dark:bg-[#070b14]/95 backdrop-blur-2xl border-t border-slate-200/80 dark:border-white/10 shadow-[0_-4px_24px_rgba(0,0,0,0.06)] select-none pb-[env(safe-area-inset-bottom,0px)]"
+      className="shrink-0 w-full z-40 bg-white/95 dark:bg-[#070b14]/95 backdrop-blur-2xl border-t border-slate-200/80 dark:border-white/10 shadow-[0_-4px_24px_rgba(0,0,0,0.08)] select-none"
+      style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 8px)' }}
       aria-label="Bottom Navigation Menu"
     >
-      <div className="max-w-[1280px] mx-auto px-2 sm:px-6 h-14 flex items-center justify-center">
+      <div className="max-w-[1280px] mx-auto px-2 sm:px-6 pt-1.5 pb-1 flex items-center justify-center">
         {/* Fixed static tab bar container */}
-        <div className="flex items-center justify-between w-full max-w-xl h-11 p-1 bg-slate-200/60 dark:bg-slate-900/70 backdrop-blur-xl rounded-2xl border border-white/70 dark:border-white/10 shadow-[inset_0_1px_2px_rgba(0,0,0,0.04)] gap-1">
+        <div className="flex items-center justify-between w-full max-w-xl h-12 p-1 bg-slate-200/60 dark:bg-slate-900/70 backdrop-blur-xl rounded-2xl border border-white/70 dark:border-white/10 shadow-[inset_0_1px_2px_rgba(0,0,0,0.04)] gap-1">
           {items.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;

@@ -3,6 +3,16 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
   body {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", 'Plus Jakarta Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;

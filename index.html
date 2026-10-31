@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-full w-full">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>SeatEase - Online Seat Booking System</title>
     <meta name="description" content="A RedBus-inspired online bus seat booking system with interactive 30-seat layout, real-time availability, passenger booking, ticket confirmation, and complete Java OOP JDBC backend architecture." />
     <meta property="og:title" content="SeatEase - Online Seat Booking System" />
@@ -27,8 +27,8 @@
       })();
     </script>
   </head>
-  <body class="bg-slate-50 text-slate-900 dark:bg-[#070C16] dark:text-slate-100 antialiased min-h-screen transition-colors duration-200">
-    <div id="root"></div>
+  <body class="bg-slate-50 text-slate-900 dark:bg-[#070C16] dark:text-slate-100 antialiased h-full w-full overflow-hidden transition-colors duration-200">
+    <div id="root" class="h-full w-full overflow-hidden flex flex-col"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
